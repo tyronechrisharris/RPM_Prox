@@ -1,0 +1,11 @@
+# Build stage
+FROM golang:1.21-alpine AS builder
+WORKDIR /app
+COPY main.go .
+# Compile a statically linked binary for ARM64 (Raspberry Pi 4/5)
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -ldflags="-w -s" -o multiplexer main.go
+
+# Final stage: completely empty container containing only the binary
+FROM scratch
+COPY --from=builder /app/multiplexer /multiplexer
+ENTRYPOINT ["/multiplexer"]
