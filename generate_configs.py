@@ -52,10 +52,8 @@ def generate_docker_compose():
         service_name = f"rpm-proxy-{lane_num:02d}"
 
         compose["services"][service_name] = {
-            "build": {
-                "context": ".",
-                "dockerfile": "Dockerfile.multiplexer"
-            },
+            # UPDATED: Use the pre-built image instead of building 50 times
+            "image": "rpm-proxy-base",
             "network_mode": "host",
             "restart": "unless-stopped",
             "command": [str(pi_listen_port), SIMULATOR_IP, str(sim_rpm_port)]
