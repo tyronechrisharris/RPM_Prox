@@ -50,11 +50,10 @@ for i in $(seq 1 $TOTAL_LANES); do
 EOF
 
     # Append the TCP multiplexer service to docker-compose.yml
+    # UPDATED: Uses the pre-built 'rpm-proxy-base' image to prevent Pi lockups
     cat <<EOF >> docker-compose.yml
   rpm-proxy-${LANE_NUM}:
-    build: 
-      context: .
-      dockerfile: Dockerfile.multiplexer
+    image: rpm-proxy-base
     network_mode: "host"
     restart: unless-stopped
     command: ["${LISTEN_PORT}", "${SIM_IP}", "${RPM_PORT}"]
