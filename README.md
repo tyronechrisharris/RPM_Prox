@@ -30,13 +30,17 @@ This system is optimized to run on a Raspberry Pi 4 or 5 utilizing an ARM64 arch
     ```bash
     chmod +x generate.sh
     ```
-3.  **Generate Configurations:** Run the script to build `mediamtx.yml` and `docker-compose.yml`.
+3.  **Build the Base Image:** To prevent the Raspberry Pi from locking up by attempting to compile Go 50 times simultaneously, build the base multiplexer image manually once:
+    ```bash
+    sudo docker build -t rpm-proxy-base -f Dockerfile.multiplexer .
+    ```
+4.  **Generate Configurations:** Run the script to build `mediamtx.yml` and `docker-compose.yml`.
     ```bash
     ./generate.sh
     ```
-4.  **Build and Deploy:** Start the proxy array. This will compile the Go binary for ARM64 and launch all 51 containers (1 for MediaMTX, 50 for the RPM proxies).
+5.  **Deploy:** Start the proxy array. This will instantly launch all 51 containers sharing the base image you built in step 3.
     ```bash
-    docker compose up --build -d
+    sudo docker compose up -d
     ```
 
 ## Connecting Clients (OSCAR / CAS)
