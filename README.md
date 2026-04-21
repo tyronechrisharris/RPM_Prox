@@ -36,7 +36,7 @@ This system is optimized to run on a Raspberry Pi 4 or 5 utilizing an ARM64 arch
     ```
 4.  **Build and Deploy:** Start the proxy array. This will compile the Go binary for ARM64 and launch all 51 containers (1 for MediaMTX, 50 for the RPM proxies).
     ```bash
-    docker-compose up --build -d
+    docker compose up --build -d
     ```
 
 ## Connecting Clients (OSCAR / CAS)
