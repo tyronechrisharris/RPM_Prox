@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Configuration Variables
-SIM_IP="100.79.78.21"
+SIM_IP="192.168.8.8"
 TOTAL_LANES=50
 RPM_START_PORT=10001
 CAM_START_PORT=8554
